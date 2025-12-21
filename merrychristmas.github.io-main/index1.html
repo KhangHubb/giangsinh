@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon" />
+
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+	
+	<style>
+		#santaIconBtn {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			background: none;
+			border: none;
+			font-size: 40px;
+			cursor: pointer;
+			z-index: 1000;
+			filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+			transition: transform 0.2s;
+		}
+		#santaIconBtn:hover {
+			transform: scale(1.1);
+		}
+	</style>
+	
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/howler.min.js"></script>
+	<script type="text/javascript" src="js/typed.js"></script>
+	<script type="text/javascript" src="js/ThreeCanvas.js"></script>
+	<script type="text/javascript" src="js/Snow.js"></script>
+	<script type="text/javascript" src="js/Custom.js"></script>
+	
+</head>
+<body onLoad="loading();">
+	
+	<div id="loading">
+		<div class="spinner">
+        </div>
+	</div>
+	
+	<div id="wrap">
+        
+        <div class="snow">
+        </div>
+        
+        <div class="ice">
+        </div>
+
+        <img id="santaClaus" alt="Santa Claus" />
+
+        <div id="letter">
+        	<span class="message"></span>
+        </div>
+
+        <img id="reindeer" src="imgs/reindeer.png" alt="Reindeer" />
+
+        <!-- Icon Santa Claus clickable -->
+        <button id="santaIconBtn" title="Click để chuyển trang">🎅</button>
+
+        <script>
+            document.getElementById('santaIconBtn').addEventListener('click', function() {
+                window.location.href = 'index3.html';
+            });
+        </script
+	</div>
+</body>
+</html>

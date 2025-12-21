@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        video {
+            width: 80%;
+            height: 80%;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+        
+        video::-moz-media-controls {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <video id="myVideo">
+        <source src="1.mp4" type="video/mp4">
+    </video>
+
+    <script>
+        var video = document.getElementById('myVideo');
+
+        // Hàm request fullscreen
+        function enterFullscreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen().catch(err => console.log(err));
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+
+        // Click vào video: fullscreen + phát video
+        video.addEventListener('click', function() {
+            enterFullscreen();
+            video.play();
+        });
+
+        // Khi fullscreen, phát video
+        document.addEventListener('fullscreenchange', function() {
+            if (document.fullscreenElement) {
+                video.play();
+            }
+        });
+
+        // Khi thoát fullscreen, dừng video
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement) {
+                video.pause();
+            }
+        });
+
+        // Khi video kết thúc
+        video.addEventListener('ended', function() {
+            // Thoát fullscreen
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+            
+            // Chuyển trang
+            window.location.href = 'merrychristmas.github.io-main/index.html';
+        });
+
+        // Ngăn Escape key thoát fullscreen
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+            }
+        }, true);
+    </script>
+</body>
+</html>
