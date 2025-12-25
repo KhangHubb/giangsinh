@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +25,65 @@
 		}
 		#santaIconBtn:hover {
 			transform: scale(1.1);
+		}
+
+		/* Wheel icon */
+		#wheelIconBtn {
+			position: fixed;
+			top: 20px;
+			left: 20px;
+			width: 70px;
+			height: 70px;
+			background: linear-gradient(135deg, #ff7a7a 0%, #ffb36b 100%);
+			border: 4px solid #ffd700;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 40px;
+			z-index: 1000;
+			box-shadow: 0 8px 16px rgba(255, 122, 122, 0.4);
+			animation: wheelRotate 12s linear infinite, wheelPulse 2s ease-in-out infinite;
+			transition: transform 0.2s;
+		}
+
+		#wheelIconBtn:hover {
+			transform: scale(1.15);
+		}
+
+		@keyframes wheelRotate {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+
+		@keyframes wheelPulse {
+			0%, 100% { box-shadow: 0 8px 16px rgba(255, 122, 122, 0.4); }
+			50% { box-shadow: 0 8px 24px rgba(255, 122, 122, 0.8); }
+		}
+
+		/* Snowflakes around wheel */
+		.snowflake {
+			position: fixed;
+			top: -10px;
+			color: #a0d9ff;
+			font-size: 18px;
+			font-family: Arial, sans-serif;
+			text-shadow: 0 0 5px #a0d9ff;
+			z-index: 500;
+			user-select: none;
+			pointer-events: none;
+			animation: snowFall 3s linear forwards;
+		}
+
+		@keyframes snowFall {
+			0% {
+				opacity: 0.8;
+			}
+			100% {
+				opacity: 0;
+				transform: translateY(150px);
+			}
 		}
 	</style>
 	
@@ -60,6 +119,9 @@
 
         <img id="reindeer" src="imgs/reindeer.png" alt="Reindeer" />
 
+        <!-- Wheel icon -->
+        <button id="wheelIconBtn" title="Vòng quay">🎡</button>
+
         <!-- Icon Santa Claus clickable -->
         <button id="santaIconBtn" title="Click để chuyển trang">🎅</button>
 
@@ -67,7 +129,34 @@
             document.getElementById('santaIconBtn').addEventListener('click', function() {
                 window.location.href = 'index3.html';
             });
-        </script
+
+            document.getElementById('wheelIconBtn').addEventListener('click', function() {
+                window.location.href = 'C:\\Users\\Admin\\Desktop\\giánginh\\merrychristmas.github.io-main\\VòngQuayGiảiThưởng-ChỉĐịnhTrúng.html';
+            });
+
+            // Snowflake effect around wheel icon
+            function createSnowflakes() {
+                const wheelBtn = document.getElementById('wheelIconBtn');
+                const rect = wheelBtn.getBoundingClientRect();
+
+                for (let i = 0; i < 8; i++) {
+                    const snowflake = document.createElement('div');
+                    snowflake.className = 'snowflake';
+                    snowflake.textContent = '❄';
+                    snowflake.style.left = (rect.left + Math.random() * 100 - 50) + 'px';
+                    snowflake.style.top = (rect.top + Math.random() * 80 - 40) + 'px';
+                    snowflake.style.fontSize = (Math.random() * 16 + 10) + 'px';
+                    document.body.appendChild(snowflake);
+
+                    setTimeout(() => snowflake.remove(), 3000);
+                }
+            }
+
+            // Create snowflakes every 2 seconds
+            setInterval(createSnowflakes, 2000);
+            createSnowflakes(); // Initial snowflakes
+        </script>
 	</div>
+	
 </body>
 </html>
