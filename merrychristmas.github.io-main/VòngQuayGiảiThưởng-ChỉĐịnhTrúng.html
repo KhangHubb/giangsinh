@@ -68,7 +68,11 @@
             
             //Kiểm tra vòng quay
             let wheelSpinning = false;
-            
+            // Chỉ định 3 tên muốn quay ra trước (nếu không muốn thì để rỗng: [])
+            // Ví dụ: let forcedWinners = ['Hà An', ' Minh Anh', ' Vân Anh'];
+            let forcedWinners = [' Minh Anh', ' Ngọc Linh', ' Tâm Tâm'];
+            let forcedIndex = 0;
+
             //Tạo âm thanh và tải tập tin tick.mp3.
             let audio = new Audio('tick.mp3');
             function playSound() {
@@ -94,11 +98,35 @@
             statusButton(1);
             
             //stopAngle
-            function stopAngle() {
-                // Set a random stop angle across the full circle so it works for any segment count
-                const stopAt = Math.random() * 360;
-                theWheel.animation.stopAngle = stopAt;
+         function stopAngle() {
+    let stopAt;
+
+    // 👉 Nếu còn tên bị ép
+    if (forcedIndex < forcedWinners.length) {
+        const targetName = forcedWinners[forcedIndex].trim();
+
+        // tìm segment tương ứng
+        for (let i = 1; i < theWheel.segments.length; i++) {
+            if (
+                theWheel.segments[i] &&
+                String(theWheel.segments[i].text).trim() === targetName
+            ) {
+                // tính góc để kim trúng segment này
+                stopAt = theWheel.getRandomForSegment(i);
+                forcedIndex++;
+                break;
             }
+        }
+    }
+
+    // 👉 Nếu không ép được (hết danh sách hoặc không tìm thấy)
+    if (stopAt === undefined) {
+        stopAt = Math.random() * 360;
+    }
+
+    theWheel.animation.stopAngle = stopAt;
+}
+
             
             //startSpin
             function startSpin() {
